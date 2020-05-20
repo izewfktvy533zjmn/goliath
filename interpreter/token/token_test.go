@@ -38,26 +38,28 @@ func TestIsTokenType(test *testing.T) {
     }
 }
 
-func TestGetValue(test *testing.T) {
-    token_number := new(Token)
-    token_number.Type = NUMBER
-    token_number.Literal = "1"
+func TestGetValue_Number(test *testing.T) {
+    token := new(Token)
+    token.Type = NUMBER
+    token.Literal = "1"
 
     expect := 1
-    actual, ok := token_number.GetValue().(int)
+    actual, ok := token.GetValue().(int)
 
     if !ok || expect != actual {
         test.Errorf("%d != %d", expect, actual)
     }
+}
 
-    token_boolean := new(Token)
-    token_boolean.Type = BOOLEAN
-    token_boolean.Literal = "true"
+func TestGetValue_Boolean(test *testing.T) {
+    token := new(Token)
+    token.Type = BOOLEAN
+    token.Literal = "true"
 
-    expect_b := true
-    actual_b, ok := token_boolean.GetValue().(bool)
+    expect := true
+    actual, ok := token.GetValue().(bool)
 
-    if !ok || expect_b != actual_b {
-        test.Errorf("%s != %s", strconv.FormatBool(expect_b), strconv.FormatBool(actual_b))
+    if !ok || expect != actual {
+        test.Errorf("%s != %s", strconv.FormatBool(expect), strconv.FormatBool(actual))
     }
 }
