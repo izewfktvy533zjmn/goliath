@@ -22,11 +22,11 @@ const (
     QUOTE        = "Quote"
 )
 
-func (token Token) String() string {
+func (token *Token) String() string {
     return fmt.Sprintf("Token (%s, %s)", token.Type, token.Literal)
 }
 
-func (token Token) IsTokenType(tokenType TokenType) bool {
+func (token *Token) IsTokenType(tokenType TokenType) bool {
     if token.Type == tokenType {
         return true
     } else {
@@ -34,7 +34,7 @@ func (token Token) IsTokenType(tokenType TokenType) bool {
     }
 }
 
-func (token Token) GetValue() interface{} {
+func (token *Token) GetValue() interface{} {
     switch token.Type {
         case NUMBER:
             ret, _ := strconv.Atoi(token.Literal)
