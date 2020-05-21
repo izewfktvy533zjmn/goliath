@@ -23,7 +23,13 @@ const (
 )
 
 func (token *Token) String() string {
-    return fmt.Sprintf("Token (%s, %s)", token.Type, token.Literal)
+    switch token.Type {
+        case NUMBER, BOOLEAN, INDENTIFIER:
+            return fmt.Sprintf("Token (%s, %s)", token.Type, token.Literal)
+
+        default:
+            return fmt.Sprintf("Token (%s)", token.Type)
+    }
 }
 
 func (token *Token) IsTokenType(tokenType TokenType) bool {
