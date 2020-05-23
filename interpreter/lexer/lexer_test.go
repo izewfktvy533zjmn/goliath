@@ -10,7 +10,7 @@ func TestNew_line(test *testing.T) {
 
     lexer := New(input)
 
-    expect := input
+    expect := input + " "
     actual := lexer.Line
 
     if expect != actual {
@@ -62,11 +62,11 @@ func TestUpdateNextChar(test *testing.T) {
 }
 
 func TestGetNextToken(test *testing.T) {
-    input := "(+ 1 1)"
+    input := "#t"
 
     lexer := New(input)
 
-    expect := *(&token.Token{Type: token.LEFTPAR, Literal: "("})
+    expect := *(&token.Token{Type: token.BOOLEAN, Literal: "#t"})
     actual := *(lexer.GetNextToken())
 
     if expect != actual {
