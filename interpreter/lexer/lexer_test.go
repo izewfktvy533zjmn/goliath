@@ -1,55 +1,34 @@
 package lexer
 
 import (
+    "bufio"
+    "errors"
+    "os"
     "testing"
     "../token"
 )
 
-func TestNew_line(test *testing.T) {
-    input := "test"
+func TestNew(test *testing.T) {
+    in := bufio.NewScanner(os.Stdin)
+    lexer := New(in)
 
-    lexer := New(input)
-
-    expect := input + " "
-    actual := lexer.Line
-
-    if expect != actual {
-        test.Errorf("%s != %s", expect, actual)
-    }
-}
-
-func TestNew_lineIndex(test *testing.T) {
-    input := "test"
-
-    lexer := New(input)
-
-    var expect uint64
-    expect = 0
-    actual := lexer.LineIndex
+    expect := in
+    actual := lexer.In
 
     if expect != actual {
-        test.Errorf("%d != %d", expect, actual)
-    }
-}
-
-func TestNew_nextChar(test *testing.T) {
-    input := "test"
-
-    lexer := New(input)
-
-    var expect byte
-    expect = 't'
-    actual := lexer.NextChar
-
-    if expect != actual {
-        test.Errorf("%b != %b", expect, actual)
+        test.Errorf("%p != %p", expect, actual)
     }
 }
 
 func TestUpdateNextChar(test *testing.T) {
-    input := "test"
+    inputText := "test" + string(WHITESPACE_AT_EOL)
 
-    lexer := New(input)
+    in := bufio.NewScanner(os.Stdin)
+    lexer := New(in)
+    lexer.Line = inputText
+    lexer.LineIndex = 0
+    lexer.NextChar = lexer.Line[0]
+
     lexer.UpdateNextChar()
 
     var expect byte
@@ -57,17 +36,34 @@ func TestUpdateNextChar(test *testing.T) {
     actual := lexer.NextChar
 
     if expect != actual {
-        test.Errorf("%b != %b", expect, actual)
+        test.Errorf("%s != %s", string(expect), string(actual))
+    }
+}
+
+func TestUpdateNextChar_error(test *testing.T) {
+    in := bufio.NewScanner(os.Stdin)
+    lexer := New(in)
+
+    expect := errors.New("EndOfFileException").Error()
+    actual := lexer.UpdateNextChar().Error()
+
+    if expect != actual {
+        test.Errorf("%s != %s", expect, actual)
     }
 }
 
 func TestGetNextToken(test *testing.T) {
-    input := "#t"
+    inputText := "#t" + string(WHITESPACE_AT_EOL)
 
-    lexer := New(input)
+    in := bufio.NewScanner(os.Stdin)
+    lexer := New(in)
+    lexer.Line = inputText
+    lexer.LineIndex = 0
+    lexer.NextChar = lexer.Line[0]
 
     expect := *(&token.Token{Type: token.BOOLEAN, Literal: "#t"})
-    actual := *(lexer.GetNextToken())
+    tmp, _ := lexer.GetNextToken()
+    actual := *(tmp)
 
     if expect != actual {
         test.Errorf("%s != %s", expect, actual)
