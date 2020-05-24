@@ -18,12 +18,11 @@ const (
 )
 
 func New(in *bufio.Scanner) *Lexer {
-    lexer := &Lexer{In: in}
+    lexer := &Lexer{In: in, NextChar: WHITESPACE_AT_EOL}
     return lexer
 }
 
 func (lexer *Lexer)UpdateNextChar() error {
-    // TODO: 文字列の読み込み処理と文字列の終端処理
     if lexer.LineIndex == uint64(len(lexer.Line)) {
         text := lexer.In.Text()
         if text == "" {
