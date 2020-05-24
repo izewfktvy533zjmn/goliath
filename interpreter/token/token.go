@@ -20,7 +20,6 @@ const (
     RIGHTPAR     = "Rightpar"
     DOT          = "Dot"
     QUOTE        = "Quote"
-    UNKNOWN      = "Unknown"
 )
 
 func (token *Token) String() string {

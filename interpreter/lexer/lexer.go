@@ -46,7 +46,7 @@ func (lexer *Lexer)UpdateNextChar() error {
     return nil
 }
 
-func (lexer *Lexer)GetNextToken() *token.Token {
+func (lexer *Lexer)GetNextToken() (*token.Token, error) {
     char := lexer.NextChar
 
     for char == WHITESPACE_AT_EOL {
@@ -57,15 +57,15 @@ func (lexer *Lexer)GetNextToken() *token.Token {
     switch char {
         case '(':
             lexer.UpdateNextChar()
-            return &token.Token{Type: token.LEFTPAR, Literal: "("}
+            return &token.Token{Type: token.LEFTPAR, Literal: "("}, nil
 
         case ')':
             lexer.UpdateNextChar()
-            return &token.Token{Type: token.RIGHTPAR, Literal: ")"}
+            return &token.Token{Type: token.RIGHTPAR, Literal: ")"}, nil
 
         case '.':
             lexer.UpdateNextChar()
-            return &token.Token{Type: token.DOT, Literal: "."}
+            return &token.Token{Type: token.DOT, Literal: "."}, nil
 
         case '#':
             lexer.UpdateNextChar()
@@ -74,17 +74,18 @@ func (lexer *Lexer)GetNextToken() *token.Token {
 
             if lexer.NextChar == WHITESPACE_AT_EOL {
                 if ch == 't' {
-                    return &token.Token{Type: token.BOOLEAN, Literal: "#t"}
+                    return &token.Token{Type: token.BOOLEAN, Literal: "#t"}, nil
                 } else if ch == 'f' {
-                    return &token.Token{Type: token.BOOLEAN, Literal: "#f"}
+                    return &token.Token{Type: token.BOOLEAN, Literal: "#f"}, nil
                 } else {
-                    return &token.Token{Type: token.UNKNOWN, Literal: "unknown"}
+                    return nil, errors.New("SyntaxErrorException")
                 }
             } else {
-                return &token.Token{Type: token.UNKNOWN, Literal: "unknown"}
+                return nil, errors.New("SyntaxErrorException")
             }
 
         default:
-            return &token.Token{Type: token.UNKNOWN, Literal: "unknown"}
+            return nil, errors.New("SyntaxErrorException")
+
     }
 }
