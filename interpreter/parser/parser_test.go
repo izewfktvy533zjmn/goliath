@@ -7,7 +7,7 @@ import (
     "errors"
     "testing"
     "../lexer"
-    "../../scheme"
+    "../../scheme/number"
 )
 
 func TestParse(test *testing.T) {
@@ -29,14 +29,14 @@ func TestParse(test *testing.T) {
     l := lexer.New(in)
     parser := New(l)
 
-    expect := *(&scheme.Number{Num: 10})
+    expect := *(number.New(10))
     tmp, err := parser.Parse()
 
     if err != nil {
         test.Errorf("%s", err)
     }
 
-    actual := *(tmp.(*scheme.Number))
+    actual := *(tmp.(*number.Number))
 
     if expect != actual {
         test.Errorf("%d != %d", expect, actual)
