@@ -25,13 +25,17 @@ func TestUpdateNextChar(test *testing.T) {
     inputText := "test"
 
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
+
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -57,9 +61,11 @@ func TestUpdateNextChar(test *testing.T) {
 
 func TestUpdateNextChar_error(test *testing.T) {
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
+
     fp.Close()
 
     fp, err = os.Open("test.scm")
@@ -87,13 +93,17 @@ func TestUpdateNextChar_error(test *testing.T) {
 func TestGetNextToken_Leftpar(test *testing.T) {
     inputText := "("
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
+
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -120,14 +130,17 @@ func TestGetNextToken_Leftpar(test *testing.T) {
 func TestGetNextToken_Rightpar(test *testing.T) {
     inputText := ")"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -154,14 +167,17 @@ func TestGetNextToken_Rightpar(test *testing.T) {
 func TestGetNextToken_Dot(test *testing.T) {
     inputText := "."
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -188,14 +204,17 @@ func TestGetNextToken_Dot(test *testing.T) {
 func TestGetNextToken_Quote(test *testing.T) {
     inputText := "'"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -222,14 +241,17 @@ func TestGetNextToken_Quote(test *testing.T) {
 func TestGetNextToken_Boolean_true(test *testing.T) {
     inputText := "#t"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -256,14 +278,17 @@ func TestGetNextToken_Boolean_true(test *testing.T) {
 func TestGetNextToken_Boolean_false(test *testing.T) {
     inputText := "#f"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -290,14 +315,17 @@ func TestGetNextToken_Boolean_false(test *testing.T) {
 func TestGetNextToken_Boolean_error1(test *testing.T) {
     inputText := "#test"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -323,14 +351,17 @@ func TestGetNextToken_Boolean_error1(test *testing.T) {
 func TestGetNextToken_Boolean_error2(test *testing.T) {
     inputText := "#"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -356,14 +387,17 @@ func TestGetNextToken_Boolean_error2(test *testing.T) {
 func TestGetNextToken_Number_1(test *testing.T) {
     inputText := "1"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -390,14 +424,17 @@ func TestGetNextToken_Number_1(test *testing.T) {
 func TestGetNextToken_Number_10(test *testing.T) {
     inputText := "10"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }
@@ -424,14 +461,17 @@ func TestGetNextToken_Number_10(test *testing.T) {
 func TestGetNextToken_Identifier(test *testing.T) {
     inputText := "test"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+
     if err != nil {
         panic(err)
     }
 
     fmt.Fprint(fp, inputText)
+    fp.Sync()
     fp.Close()
 
     fp, err = os.Open("test.scm")
+
     if err != nil {
         panic(err)
     }

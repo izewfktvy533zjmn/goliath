@@ -69,10 +69,10 @@ func TestParse_error(test *testing.T) {
     parser := New(l)
 
     expect := errors.New("ParseErrorException").Error()
-    tmp , err := parser.Parse()
+    _, err = parser.Parse()
     actual := err.Error()
 
-    if tmp != nil || err == nil {
+    if err == nil {
         test.Errorf("%s", err)
     }
 
