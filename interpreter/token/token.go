@@ -13,18 +13,18 @@ type Token struct {
 }
 
 const (
-    NUMBER       = "Number"
-    BOOLEAN      = "Boolean"
-    INDENTIFIER  = "Indentifier"
-    LEFTPAR      = "Leftpar"
-    RIGHTPAR     = "Rightpar"
-    DOT          = "Dot"
-    QUOTE        = "Quote"
+    NUMBER     = "Number"
+    BOOLEAN    = "Boolean"
+    IDENTIFIER = "Identifier"
+    LEFTPAR    = "Leftpar"
+    RIGHTPAR   = "Rightpar"
+    DOT        = "Dot"
+    QUOTE      = "Quote"
 )
 
 func (token *Token) String() string {
     switch token.Type {
-        case NUMBER, BOOLEAN, INDENTIFIER:
+        case NUMBER, BOOLEAN, IDENTIFIER:
             return fmt.Sprintf("Token (%s, %s)", token.Type, token.Literal)
 
         default:
