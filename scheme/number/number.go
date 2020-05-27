@@ -17,5 +17,5 @@ func (number *Number) GetValue() int {
 }
 
 func (number *Number) String() string {
-    return fmt.Sprintf("%s", number.Value)
+    return fmt.Sprintf("%d", number.Value)
 }
