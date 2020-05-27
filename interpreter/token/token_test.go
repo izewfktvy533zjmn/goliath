@@ -51,12 +51,25 @@ func TestGetValue_Number(test *testing.T) {
     }
 }
 
-func TestGetValue_Boolean(test *testing.T) {
+func TestGetValue_Boolean_true(test *testing.T) {
     token := new(Token)
     token.Type = BOOLEAN
-    token.Literal = "true"
+    token.Literal = "#t"
 
     expect := true
+    actual, ok := token.GetValue().(bool)
+
+    if !ok || expect != actual {
+        test.Errorf("%s != %s", strconv.FormatBool(expect), strconv.FormatBool(actual))
+    }
+}
+
+func TestGetValue_Boolean_false(test *testing.T) {
+    token := new(Token)
+    token.Type = BOOLEAN
+    token.Literal = "#f"
+
+    expect := false
     actual, ok := token.GetValue().(bool)
 
     if !ok || expect != actual {
