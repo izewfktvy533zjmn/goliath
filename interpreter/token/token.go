@@ -47,8 +47,11 @@ func (token *Token) GetValue() interface{} {
             return ret
 
         case BOOLEAN:
-            ret, _ := strconv.ParseBool(token.Literal)
-            return ret
+            if token.Literal == "#t" {
+                return true
+            } else {
+                return false
+            }
 
         default:
             return token.Literal
