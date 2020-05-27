@@ -5,7 +5,6 @@ import (
     "errors"
     "strconv"
     "../token"
-    //"fmt"
 )
 
 type Lexer struct {
@@ -148,7 +147,7 @@ func (lexer *Lexer)GetNextToken() (*token.Token, error) {
                 char = lexer.NextChar
             }
 
-            lexer.UpdateNextChar()
+            //lexer.UpdateNextChar()
 
             _, err := strconv.Atoi(inputText)
 
