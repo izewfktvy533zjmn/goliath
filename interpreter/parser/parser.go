@@ -28,8 +28,8 @@ func (parser *Parser) Parse() (interface{}, error) {
 func (parser *Parser) Read() (interface{}, error) {
     switch parser.Token.Type {
         case token.NUMBER:
-            val, _ := parser.Token.GetValue().(int)
-            return number.New(val), nil
+            value, _ := parser.Token.GetValue().(int)
+            return number.New(value), nil
 
         case token.BOOLEAN:
             value, _ := parser.Token.GetValue().(bool)

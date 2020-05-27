@@ -5,17 +5,17 @@ import (
 )
 
 type Number struct {
-    Num int
+    Value int
 }
 
-func New(num int) *Number {
-    return &Number{Num: num}
+func New(value int) *Number {
+    return &Number{Value: value}
 }
 
 func (number *Number) GetValue() int {
-    return number.Num
+    return number.Value
 }
 
 func (number *Number) String() string {
-    return fmt.Sprintf("%s", number.Num)
+    return fmt.Sprintf("%s", number.Value)
 }
