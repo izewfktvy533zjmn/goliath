@@ -8,30 +8,36 @@ import (
     "./interpreter/parser"
     "./scheme/number"
     "./scheme/boolean"
+    "./scheme/identifier"
 )
 
 func main() {
     stdin := bufio.NewScanner(os.Stdin)
 
-    fmt.Print("goliath> ")
-    lexer := lexer.New(stdin)
-    parser := parser.New(lexer)
-    sexp, err :=  parser.Parse()
+    for {
+        fmt.Print("goliath> ")
+        lexer := lexer.New(stdin)
+        parser := parser.New(lexer)
+        sexp, err :=  parser.Parse()
 
-    if err != nil {
-        fmt.Println("Error")
-        return 
-    }
+        if err != nil {
+            fmt.Println("Error")
+            continue
+        }
 
-    switch sexp.(type) {
-        case *number.Number:
-            fmt.Println((*(sexp.(*number.Number))).String())
+        switch sexp.(type) {
+            case *number.Number:
+                fmt.Println((*(sexp.(*number.Number))).String())
 
-        case *boolean.Boolean:
-            fmt.Println((*(sexp.(*boolean.Boolean))).String())
+            case *boolean.Boolean:
+                fmt.Println((*(sexp.(*boolean.Boolean))).String())
 
-        default:
-            fmt.Println("Unknown")
+            case *identifier.Identifier:
+                fmt.Println((*(sexp.(*identifier.Identifier))).String())
+
+            default:
+                fmt.Println("Unknown")
+        }
     }
 
 }

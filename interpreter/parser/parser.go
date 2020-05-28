@@ -6,6 +6,7 @@ import (
     "../lexer"
     "../../scheme/number"
     "../../scheme/boolean"
+    "../../scheme/identifier"
 )
 
 type Parser struct {
@@ -39,6 +40,10 @@ func (parser *Parser) Read() (interface{}, error) {
         case token.BOOLEAN:
             value, _ := parser.Token.GetValue().(bool)
             return boolean.New(value), nil
+
+        case token.IDENTIFIER:
+            value, _ := parser.Token.GetValue().(string)
+            return identifier.New(value), nil
 
         default:
             return nil, errors.New("ParseErrorException")
