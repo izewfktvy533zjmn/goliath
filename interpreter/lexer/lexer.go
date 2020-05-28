@@ -147,8 +147,6 @@ func (lexer *Lexer)GetNextToken() (*token.Token, error) {
                 char = lexer.NextChar
             }
 
-            //lexer.UpdateNextChar()
-
             _, err := strconv.Atoi(inputText)
 
             if err != nil {

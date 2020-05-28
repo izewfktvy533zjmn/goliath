@@ -20,7 +20,12 @@ func New(l *lexer.Lexer) *Parser {
 
 func (parser *Parser) Parse() (interface{}, error) {
     parser.NestingLevel = 0
-    parser.Token, _ = parser.Lexer.GetNextToken()
+    token, err := parser.Lexer.GetNextToken()
+    parser.Token = token
+
+    if err != nil {
+        return nil, errors.New("ParseErrorException")
+    }
 
     return parser.Read()
 }

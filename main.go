@@ -16,7 +16,12 @@ func main() {
     fmt.Print("goliath> ")
     lexer := lexer.New(stdin)
     parser := parser.New(lexer)
-    sexp, _ :=  parser.Parse()
+    sexp, err :=  parser.Parse()
+
+    if err != nil {
+        fmt.Println("Error")
+        return 
+    }
 
     switch sexp.(type) {
         case *number.Number:
