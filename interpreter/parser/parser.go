@@ -35,14 +35,47 @@ func (parser *Parser) Read() (interface{}, error) {
     switch parser.Token.Type {
         case token.NUMBER:
             value, _ := parser.Token.GetValue().(int)
+
+            if parser.NestingLevel != 0 {
+                token, err := parser.Lexer.GetNextToken()
+
+                if err != nil {
+                    return nil, errors.New("ParseErrorException")
+                }
+
+                parser.Token = token
+            }
+
             return number.New(value), nil
 
         case token.BOOLEAN:
             value, _ := parser.Token.GetValue().(bool)
+
+            if parser.NestingLevel != 0 {
+                token, err := parser.Lexer.GetNextToken()
+
+                if err != nil {
+                    return nil, errors.New("ParseErrorException")
+                }
+
+                parser.Token = token
+            }
+
             return boolean.New(value), nil
 
         case token.IDENTIFIER:
             value, _ := parser.Token.GetValue().(string)
+
+            if parser.NestingLevel != 0 {
+                token, err := parser.Lexer.GetNextToken()
+
+                if err != nil {
+                    return nil, errors.New("ParseErrorException")
+                }
+
+                parser.Token = token
+            }
+
             return identifier.New(value), nil
 
         default:
