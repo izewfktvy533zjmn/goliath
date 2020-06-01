@@ -10,6 +10,7 @@ import (
     "../../scheme/number"
     "../../scheme/boolean"
     "../../scheme/identifier"
+    "../../scheme/emptylist"
 )
 
 func TestParse_Number(test *testing.T) {
@@ -156,6 +157,45 @@ func TestParse_Identifier(test *testing.T) {
     }
 
     actual := *(tmp.(*identifier.Identifier))
+
+    if expect != actual {
+        test.Errorf("%s != %s", expect.String(), actual.String())
+    }
+
+    fp.Close()
+
+    if err := os.Remove("test.scm"); err != nil {
+        panic(err)
+    }
+}
+
+func TestParse_EmptyList(test *testing.T) {
+    inputText := "()"
+    fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
+    if err != nil {
+        panic(err)
+    }
+
+    fmt.Fprint(fp, inputText)
+    fp.Close()
+
+    fp, err = os.Open("test.scm")
+    if err != nil {
+        panic(err)
+    }
+
+    in := bufio.NewScanner(fp)
+    l := lexer.New(in)
+    parser := New(l)
+
+    expect := *(emptylist.New())
+    tmp, err := parser.Parse()
+
+    if err != nil {
+        test.Errorf("%s", err)
+    }
+
+    actual := *(tmp.(*emptylist.EmptyList))
 
     if expect != actual {
         test.Errorf("%s != %s", expect.String(), actual.String())
