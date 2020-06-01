@@ -7,6 +7,8 @@ import (
     "../../scheme/number"
     "../../scheme/boolean"
     "../../scheme/identifier"
+    //"../../scheme/pair"
+    "../../scheme/emptylist"
 )
 
 type Parser struct {
@@ -21,8 +23,8 @@ func New(l *lexer.Lexer) *Parser {
 
 func (parser *Parser) Parse() (interface{}, error) {
     parser.NestingLevel = 0
-    token, err := parser.Lexer.GetNextToken()
-    parser.Token = token
+    tkn, err := parser.Lexer.GetNextToken()
+    parser.Token = tkn
 
     if err != nil {
         return nil, errors.New("ParseErrorException")
@@ -37,13 +39,13 @@ func (parser *Parser) Read() (interface{}, error) {
             value, _ := parser.Token.GetValue().(int)
 
             if parser.NestingLevel != 0 {
-                token, err := parser.Lexer.GetNextToken()
+                tkn, err := parser.Lexer.GetNextToken()
 
                 if err != nil {
                     return nil, errors.New("ParseErrorException")
                 }
 
-                parser.Token = token
+                parser.Token = tkn
             }
 
             return number.New(value), nil
@@ -52,13 +54,13 @@ func (parser *Parser) Read() (interface{}, error) {
             value, _ := parser.Token.GetValue().(bool)
 
             if parser.NestingLevel != 0 {
-                token, err := parser.Lexer.GetNextToken()
+                tkn, err := parser.Lexer.GetNextToken()
 
                 if err != nil {
                     return nil, errors.New("ParseErrorException")
                 }
 
-                parser.Token = token
+                parser.Token = tkn
             }
 
             return boolean.New(value), nil
@@ -67,16 +69,44 @@ func (parser *Parser) Read() (interface{}, error) {
             value, _ := parser.Token.GetValue().(string)
 
             if parser.NestingLevel != 0 {
-                token, err := parser.Lexer.GetNextToken()
+                tkn, err := parser.Lexer.GetNextToken()
 
                 if err != nil {
                     return nil, errors.New("ParseErrorException")
                 }
 
-                parser.Token = token
+                parser.Token = tkn
             }
 
             return identifier.New(value), nil
+
+        case token.LEFTPAR:
+            parser.NestingLevel++
+            tkn, err := parser.Lexer.GetNextToken()
+
+            if err != nil {
+                return nil, errors.New("ParseErrorException")
+            }
+
+            parser.Token = tkn
+
+            if parser.Token.Type == token.RIGHTPAR {
+                parser.NestingLevel--
+
+                if parser.NestingLevel != 0 {
+                    tkn, err := parser.Lexer.GetNextToken()
+
+                    if err != nil {
+                        return nil, errors.New("ParseErrorException")
+                    }
+
+                    parser.Token = tkn
+                }
+
+                return emptylist.New(), nil
+            }
+            return nil, errors.New("ParseErrorException")
+
 
         default:
             return nil, errors.New("ParseErrorException")

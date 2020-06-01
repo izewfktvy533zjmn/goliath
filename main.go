@@ -9,6 +9,8 @@ import (
     "./scheme/number"
     "./scheme/boolean"
     "./scheme/identifier"
+    //"./scheme/pair"
+    "./scheme/emptylist"
 )
 
 func main() {
@@ -34,6 +36,9 @@ func main() {
 
             case *identifier.Identifier:
                 fmt.Println((*(sexp.(*identifier.Identifier))).String())
+
+            case *emptylist.EmptyList:
+                fmt.Println((*(sexp.(*emptylist.EmptyList))).String())
 
             default:
                 fmt.Println("Unknown")
