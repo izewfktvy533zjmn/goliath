@@ -8,7 +8,7 @@ import (
     "./interpreter/parser"
     "./scheme/number"
     "./scheme/boolean"
-    "./scheme/identifier"
+    "./scheme/symbol"
     //"./scheme/pair"
     "./scheme/emptylist"
 )
@@ -27,18 +27,15 @@ func main() {
             continue
         }
 
-        switch sexp.(type) {
+        switch sexp := sexp.(type) {
             case *number.Number:
-                fmt.Println((*(sexp.(*number.Number))).String())
-
+                fmt.Println((*sexp).String())
             case *boolean.Boolean:
-                fmt.Println((*(sexp.(*boolean.Boolean))).String())
-
-            case *identifier.Identifier:
-                fmt.Println((*(sexp.(*identifier.Identifier))).String())
-
+                fmt.Println((*sexp).String())
+            case *symbol.Symbol:
+                fmt.Println((*sexp).String())
             case *emptylist.EmptyList:
-                fmt.Println((*(sexp.(*emptylist.EmptyList))).String())
+                fmt.Println((*sexp).String())
 
             default:
                 fmt.Println("Unknown")

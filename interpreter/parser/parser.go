@@ -6,7 +6,7 @@ import (
     "../lexer"
     "../../scheme/number"
     "../../scheme/boolean"
-    "../../scheme/identifier"
+    "../../scheme/symbol"
     //"../../scheme/pair"
     "../../scheme/emptylist"
 )
@@ -78,7 +78,7 @@ func (parser *Parser) Read() (interface{}, error) {
                 parser.Token = tkn
             }
 
-            return identifier.New(value), nil
+            return symbol.New(value), nil
 
         case token.LEFTPAR:
             parser.NestingLevel++

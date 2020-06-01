@@ -9,7 +9,7 @@ import (
     "../lexer"
     "../../scheme/number"
     "../../scheme/boolean"
-    "../../scheme/identifier"
+    "../../scheme/symbol"
     "../../scheme/emptylist"
 )
 
@@ -130,7 +130,7 @@ func TestParse_Boolean_false(test *testing.T) {
     }
 }
 
-func TestParse_Identifier(test *testing.T) {
+func TestParse_Symbol(test *testing.T) {
     inputText := "test"
     fp, err := os.OpenFile("test.scm", os.O_WRONLY|os.O_CREATE, 0666)
     if err != nil {
@@ -149,14 +149,14 @@ func TestParse_Identifier(test *testing.T) {
     l := lexer.New(in)
     parser := New(l)
 
-    expect := *(identifier.New(inputText))
+    expect := *(symbol.New(inputText))
     tmp, err := parser.Parse()
 
     if err != nil {
         test.Errorf("%s", err)
     }
 
-    actual := *(tmp.(*identifier.Identifier))
+    actual := *(tmp.(*symbol.Symbol))
 
     if expect != actual {
         test.Errorf("%s != %s", expect.String(), actual.String())
