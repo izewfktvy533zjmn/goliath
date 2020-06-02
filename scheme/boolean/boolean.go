@@ -12,7 +12,7 @@ func (boolean *Boolean) GetValue() bool {
     return boolean.Value
 }
 
-func (boolean *Boolean) String() string {
+func (boolean *Boolean) ToString() string {
     if boolean.Value {
         return "#t"
     } else {

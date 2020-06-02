@@ -12,6 +12,6 @@ func (symbol *Symbol) GetValue() string {
     return symbol.Value
 }
 
-func (symbol *Symbol) String() string {
+func (symbol *Symbol) ToString() string {
     return symbol.Value
 }

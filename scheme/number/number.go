@@ -16,6 +16,6 @@ func (number *Number) GetValue() int {
     return number.Value
 }
 
-func (number *Number) String() string {
+func (number *Number) ToString() string {
     return fmt.Sprintf("%d", number.Value)
 }

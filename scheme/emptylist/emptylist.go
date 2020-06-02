@@ -12,6 +12,6 @@ func New() *EmptyList {
     return &EmptyList{}
 }
 
-func (emptylist *EmptyList) String() string {
+func (emptylist *EmptyList) ToString() string {
     return fmt.Sprintf("()")
 }
