@@ -9,7 +9,7 @@ import (
     "./scheme/number"
     "./scheme/boolean"
     "./scheme/symbol"
-    //"./scheme/pair"
+    "./scheme/pair"
     "./scheme/emptylist"
 )
 
@@ -35,6 +35,8 @@ func main() {
             case *symbol.Symbol:
                 fmt.Println((*sexp).String())
             case *emptylist.EmptyList:
+                fmt.Println((*sexp).String())
+            case *pair.Pair:
                 fmt.Println((*sexp).String())
 
             default:
