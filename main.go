@@ -6,11 +6,7 @@ import (
     "bufio"
     "./interpreter/lexer"
     "./interpreter/parser"
-    "./scheme/number"
-    "./scheme/boolean"
-    "./scheme/symbol"
-    "./scheme/pair"
-    "./scheme/emptylist"
+    "./scheme"
 )
 
 func main() {
@@ -28,16 +24,8 @@ func main() {
         }
 
         switch sexp := sexp.(type) {
-            case *number.Number:
-                fmt.Println((*sexp).String())
-            case *boolean.Boolean:
-                fmt.Println((*sexp).String())
-            case *symbol.Symbol:
-                fmt.Println((*sexp).String())
-            case *emptylist.EmptyList:
-                fmt.Println((*sexp).String())
-            case *pair.Pair:
-                fmt.Println((*sexp).String())
+            case scheme.Scheme:
+                fmt.Println(sexp.ToString())
 
             default:
                 fmt.Println("Unknown")
