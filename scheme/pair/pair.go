@@ -5,27 +5,27 @@ import (
 )
 
 type Pair struct {
-    Car *interface{}
-    Cdr *interface{}
+    Car interface{}
+    Cdr interface{}
 }
 
 func New() *Pair {
     return &Pair{}
 }
 
-func (pair *Pair) SetCar(car *interface{}) {
+func (pair *Pair) SetCar(car interface{}) {
     pair.Car = car
 }
 
-func (pair *Pair) SetCdr(cdr *interface{}) {
+func (pair *Pair) SetCdr(cdr interface{}) {
     pair.Cdr = cdr
 }
 
-func (pair *Pair) GetCar() *interface{} {
+func (pair *Pair) GetCar() interface{} {
     return pair.Car
 }
 
-func (pair *Pair) GetCdr() *interface{} {
+func (pair *Pair) GetCdr() interface{} {
     return pair.Cdr
 }
 
