@@ -1,4 +1,4 @@
-# Golyat
+# Goliath
 Unlabored LISP Interpreter
 
 
