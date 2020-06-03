@@ -7,28 +7,28 @@ import (
     "./interpreter/lexer"
     "./interpreter/parser"
     "./scheme"
+    "./scheme/frame"
+    "./scheme/evaluator"
 )
 
 func main() {
     stdin := bufio.NewScanner(os.Stdin)
+    lexer := lexer.New(stdin)
+    parser := parser.New(lexer)
+    frame := frame.New(nil)
+    evaluator := evaluator.New(frame)
 
     for {
         fmt.Print("goliath> ")
-        lexer := lexer.New(stdin)
-        parser := parser.New(lexer)
-        sexp, err :=  parser.Parse()
-
-        if err != nil {
-            fmt.Println("Error")
+        if sexp, err :=  parser.Parse(); err != nil {
+            fmt.Println(err)
             continue
-        }
-
-        switch sexp := sexp.(type) {
-            case scheme.Scheme:
-                fmt.Println(sexp.ToString())
-
-            default:
-                fmt.Println("Unknown")
+        } else {
+            if evaluatedSExp, err := evaluator.Evaluate(sexp); err != nil {
+                fmt.Println(err)
+            } else {
+                fmt.Println(evaluatedSExp.(scheme.SExp).ToString())
+            }
         }
     }
 
