@@ -1,5 +1,5 @@
 package scheme
 
-type Scheme interface {
+type SExp interface {
     ToString() string
 }
